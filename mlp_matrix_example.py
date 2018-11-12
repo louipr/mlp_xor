@@ -45,9 +45,9 @@ def stepGradient(Xm,Y1m,Tm,Zm,W1m,W2m,gamma):
     gradient_W1i0m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[0]].transpose() #W(j=1,2)(i=0), n=1,2,3
     gradient_W1i1m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[1]].transpose() #W(j=1,2)(i=1), n=1,2,3
     gradient_W1i2m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[2]].transpose() #W(j=1,2)(i=2), n=1,2,3
-   
     gradient_W1m = np.concatenate((gradient_W1i0m,gradient_W1i1m),axis=0)
     gradient_W1m = np.concatenate((gradient_W1m,gradient_W1i2m),axis=0)
+    
     if(DEBUG):
         print("gradient_W1m")
         print(gradient_W2m)
