@@ -25,6 +25,9 @@ def y_fw_propagate(W1m,W2m,Xm):
 def stepGradient(Xm,Y1m,Tm,Zm,W1m,W2m,gamma):
     #compute W^(2) gradient 
     #W10,W11,W12
+
+    #remove W10
+    #W2pm = [[W11,W12]]
     W2pm = np.delete(W2m,0).reshape(1,2)
 
     Zpm =  (np.concatenate((np.array([[1,1,1,1]]),Zm),axis=0))
@@ -37,10 +40,11 @@ def stepGradient(Xm,Y1m,Tm,Zm,W1m,W2m,gamma):
 
     #compute W^(1) gradient
     # Wji, ji = 10,20,11,21,12,22
-    # columns n = 1,2,3,4
-    gradient_W1i0m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[0]].transpose()
-    gradient_W1i1m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[1]].transpose()
-    gradient_W1i2m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[2]].transpose()
+    # 4 columns  for n = 1,2,3,4
+    # 2 rows for W(j=1), W(j=2)
+    gradient_W1i0m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[0]].transpose() #W(j=1,2)(i=0), n=1,2,3
+    gradient_W1i1m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[1]].transpose() #W(j=1,2)(i=1), n=1,2,3
+    gradient_W1i2m = DT2m*W2pm.transpose()*Zm*(1-Zm)*Xm[:,[2]].transpose() #W(j=1,2)(i=2), n=1,2,3
    
     gradient_W1m = np.concatenate((gradient_W1i0m,gradient_W1i1m),axis=0)
     gradient_W1m = np.concatenate((gradient_W1m,gradient_W1i2m),axis=0)
